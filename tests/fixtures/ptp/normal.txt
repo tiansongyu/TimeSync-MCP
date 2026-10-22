@@ -1,0 +1,10 @@
+sending: GET TIME_STATUS_NP
+ 001122.fffe.334455-0 seq 0 RESPONSE MANAGEMENT TIME_STATUS_NP
+ master_offset -1250
+ ingress_time 1792663200000000000
+ cumulativeScaledRateOffset 0
+ scaledLastGmPhaseChange 0
+ gmTimeBaseIndicator 0
+ lastGmPhaseChange 0x0000'0000000000000000.0000
+ gmPresent true
+ gmIdentity 001122.fffe.334455

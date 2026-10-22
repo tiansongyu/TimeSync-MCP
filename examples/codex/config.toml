@@ -1,0 +1,5 @@
+# Replace the path with your actual checkout. Verified with codex-cli 0.163.0.
+[mcp_servers.timesync]
+command = "uv"
+args = ["run", "--directory", "/absolute/path/to/timesync-mcp", "timesync-mcp", "serve"]
+tool_timeout_sec = 45

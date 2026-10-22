@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "timesync": {
+      "type": "local",
+      "command": ["uv", "run", "--directory", "/absolute/path/to/timesync-mcp", "timesync-mcp", "serve"],
+      "enabled": true,
+      "timeout": 45000
+    }
+  }
+}

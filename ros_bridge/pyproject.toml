@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+[project]
+name = "timesync-ros-bridge"
+version = "0.1.0"
+requires-python = ">=3.10"
+description = "Distribution-matched read-only ROS 2 Unix socket bridge for TimeSync MCP"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+readme = "README.md"
+dependencies = []
+[project.scripts]
+timesync-ros-bridge = "timesync_ros_bridge.bridge:main"
+[tool.hatch.build.targets.wheel]
+packages = ["src/timesync_ros_bridge"]

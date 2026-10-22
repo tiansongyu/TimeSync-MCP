@@ -1,0 +1,27 @@
+# Example only. Confirm Header clock provenance before using this mapping.
+# This file does not establish measured synchronization.
+command_timeout_s = 4.0
+command_output_bytes = 262144
+max_commands = 4
+max_samples = 20000
+ptp_socket = "/var/run/ptp4l"
+ptp_offset_warning_ns = 100000
+chrony_offset_warning_ns = 1000000
+# Default bridge_socket is /tmp/timesync-mcp-<uid>/bridge.sock.
+
+[topic_clock_domains]
+"/camera/left/image_raw" = "configured:camera"
+"/camera/right/image_raw" = "configured:camera"
+
+[[graph.domains]]
+id = "configured:camera"
+name = "Operator-asserted shared camera Header clock"
+clock_type = "DEVICE_HARDWARE_CLOCK"
+timescale = "device relative nanoseconds"
+origin = "must be verified from driver/device documentation"
+is_monotonic = true
+is_adjustable = false
+sync_mechanism = "operator assertion; hardware validation pending"
+
+# Add explicit measured graph.transformations only after establishing paired
+# events. Never create a measured edge merely because two stamps are close.

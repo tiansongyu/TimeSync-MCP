@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "timesync": {
+      "type": "stdio",
+      "command": "uv",
+      "args": ["run", "--directory", "/absolute/path/to/timesync-mcp", "timesync-mcp", "serve"]
+    }
+  }
+}

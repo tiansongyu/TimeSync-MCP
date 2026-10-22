@@ -1,0 +1,4796 @@
+{
+  "list_network_interfaces": {
+    "input": {
+      "type": "object",
+      "properties": {},
+      "title": "list_network_interfacesArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "get_timestamp_capabilities": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "interface": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,14}$",
+          "title": "Interface",
+          "type": "string"
+        }
+      },
+      "required": [
+        "interface"
+      ],
+      "title": "get_timestamp_capabilitiesArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "get_ptp_status": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "interface": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,14}$",
+          "title": "Interface",
+          "type": "string"
+        },
+        "domain": {
+          "default": 0,
+          "maximum": 127,
+          "minimum": 0,
+          "title": "Domain",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "interface"
+      ],
+      "title": "get_ptp_statusArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "get_chrony_status": {
+    "input": {
+      "type": "object",
+      "properties": {},
+      "title": "get_chrony_statusArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "inspect_time_services": {
+    "input": {
+      "type": "object",
+      "properties": {},
+      "title": "inspect_time_servicesArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "get_time_sync_logs": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "enum": [
+            "ptp4l",
+            "phc2sys",
+            "chronyd",
+            "chrony",
+            "systemd-timesyncd"
+          ],
+          "title": "Service",
+          "type": "string"
+        },
+        "since": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Since"
+        },
+        "until": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Until"
+        },
+        "limit": {
+          "default": 100,
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "service"
+      ],
+      "title": "get_time_sync_logsArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "get_diagnostic_capabilities": {
+    "input": {
+      "type": "object",
+      "properties": {},
+      "title": "get_diagnostic_capabilitiesArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "analyze_timestamp_series": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "timestamps_ns": {
+          "items": {
+            "exclusiveMaximum": 9223372036854775808,
+            "minimum": -9223372036854775808,
+            "type": "integer"
+          },
+          "maxItems": 100000,
+          "minItems": 1,
+          "title": "Timestamps Ns",
+          "type": "array"
+        },
+        "expected_rate_hz": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 1000000000.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Rate Hz"
+        },
+        "synthetic": {
+          "default": false,
+          "title": "Synthetic",
+          "type": "boolean"
+        },
+        "paired_timestamps_ns": {
+          "anyOf": [
+            {
+              "items": {
+                "exclusiveMaximum": 9223372036854775808,
+                "minimum": -9223372036854775808,
+                "type": "integer"
+              },
+              "maxItems": 100000,
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Paired Timestamps Ns"
+        },
+        "correspondence_method": {
+          "anyOf": [
+            {
+              "enum": [
+                "common_events",
+                "hardware_verified",
+                "validated_mapping"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Correspondence Method"
+        },
+        "correspondence_evidence": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 32,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Correspondence Evidence"
+        }
+      },
+      "required": [
+        "timestamps_ns"
+      ],
+      "title": "analyze_timestamp_seriesArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "inspect_clock_domains": {
+    "input": {
+      "type": "object",
+      "properties": {},
+      "title": "inspect_clock_domainsArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "list_ros_topics": {
+    "input": {
+      "type": "object",
+      "properties": {},
+      "title": "list_ros_topicsArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "inspect_ros_topic": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "maxLength": 256,
+          "pattern": "^/(?:[A-Za-z_][A-Za-z0-9_]*)(?:/[A-Za-z_][A-Za-z0-9_]*)*$",
+          "title": "Topic",
+          "type": "string"
+        },
+        "duration_s": {
+          "default": 5,
+          "maximum": 30,
+          "minimum": 0.1,
+          "title": "Duration S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "topic"
+      ],
+      "title": "inspect_ros_topicArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "analyze_ros_timestamps": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "maxLength": 256,
+          "pattern": "^/(?:[A-Za-z_][A-Za-z0-9_]*)(?:/[A-Za-z_][A-Za-z0-9_]*)*$",
+          "title": "Topic",
+          "type": "string"
+        },
+        "duration_s": {
+          "default": 10,
+          "maximum": 30,
+          "minimum": 0.1,
+          "title": "Duration S",
+          "type": "number"
+        },
+        "expected_rate_hz": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 1000000000.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Rate Hz"
+        }
+      },
+      "required": [
+        "topic"
+      ],
+      "title": "analyze_ros_timestampsArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "compare_ros_topics": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "topic_a": {
+          "maxLength": 256,
+          "pattern": "^/(?:[A-Za-z_][A-Za-z0-9_]*)(?:/[A-Za-z_][A-Za-z0-9_]*)*$",
+          "title": "Topic A",
+          "type": "string"
+        },
+        "topic_b": {
+          "maxLength": 256,
+          "pattern": "^/(?:[A-Za-z_][A-Za-z0-9_]*)(?:/[A-Za-z_][A-Za-z0-9_]*)*$",
+          "title": "Topic B",
+          "type": "string"
+        },
+        "duration_s": {
+          "default": 10,
+          "maximum": 30,
+          "minimum": 0.1,
+          "title": "Duration S",
+          "type": "number"
+        },
+        "strategy": {
+          "default": "exact",
+          "enum": [
+            "exact",
+            "tolerance"
+          ],
+          "title": "Strategy",
+          "type": "string"
+        },
+        "tolerance_ns": {
+          "default": 0,
+          "maximum": 1000000000,
+          "minimum": 0,
+          "title": "Tolerance Ns",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "topic_a",
+        "topic_b"
+      ],
+      "title": "compare_ros_topicsArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "inspect_ros_clock": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "duration_s": {
+          "default": 2,
+          "maximum": 30,
+          "minimum": 0.1,
+          "title": "Duration S",
+          "type": "number"
+        }
+      },
+      "title": "inspect_ros_clockArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  },
+  "generate_time_sync_report": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "interface": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,14}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Interface"
+        },
+        "domain": {
+          "default": 0,
+          "maximum": 127,
+          "minimum": 0,
+          "title": "Domain",
+          "type": "integer"
+        },
+        "format": {
+          "default": "json",
+          "enum": [
+            "json",
+            "markdown"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "topics": {
+          "anyOf": [
+            {
+              "items": {
+                "maxLength": 256,
+                "pattern": "^/(?:[A-Za-z_][A-Za-z0-9_]*)(?:/[A-Za-z_][A-Za-z0-9_]*)*$",
+                "type": "string"
+              },
+              "maxItems": 2,
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Topics"
+        },
+        "duration_s": {
+          "default": 5,
+          "maximum": 30,
+          "minimum": 0.1,
+          "title": "Duration S",
+          "type": "number"
+        }
+      },
+      "title": "generate_time_sync_reportArguments"
+    },
+    "output": {
+      "$defs": {
+        "JsonValue": {},
+        "Measurement": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "1.0",
+              "default": "1.0",
+              "title": "Schema Version",
+              "type": "string"
+            },
+            "metric": {
+              "title": "Metric",
+              "type": "string"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Value"
+            },
+            "unit": {
+              "title": "Unit",
+              "type": "string"
+            },
+            "clock_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Clock Domain"
+            },
+            "reference_domain": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Domain"
+            },
+            "measurement_kind": {
+              "default": "observed",
+              "enum": [
+                "observed",
+                "calculated",
+                "estimated",
+                "inferred"
+              ],
+              "title": "Measurement Kind",
+              "type": "string"
+            },
+            "observed_at_utc": {
+              "format": "date-time",
+              "title": "Observed At Utc",
+              "type": "string"
+            },
+            "sample_count": {
+              "default": 1,
+              "minimum": 0,
+              "title": "Sample Count",
+              "type": "integer"
+            },
+            "uncertainty_ns": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Uncertainty Ns"
+            },
+            "status": {
+              "default": "valid",
+              "enum": [
+                "valid",
+                "partial",
+                "unavailable",
+                "unsupported",
+                "invalid",
+                "timeout",
+                "permission_denied"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/Source"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Warnings",
+              "type": "array"
+            },
+            "sign_convention": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sign Convention"
+            }
+          },
+          "required": [
+            "metric",
+            "unit",
+            "source"
+          ],
+          "title": "Measurement",
+          "type": "object"
+        },
+        "Source": {
+          "additionalProperties": false,
+          "properties": {
+            "collector": {
+              "title": "Collector",
+              "type": "string"
+            },
+            "command": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Command"
+            },
+            "interface": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Interface"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            },
+            "synthetic": {
+              "default": false,
+              "title": "Synthetic",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "collector"
+          ],
+          "title": "Source",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "measurement_kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "calculated",
+            "estimated",
+            "inferred"
+          ],
+          "title": "Measurement Kind",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "valid",
+          "enum": [
+            "valid",
+            "partial",
+            "unavailable",
+            "unsupported",
+            "invalid",
+            "timeout",
+            "permission_denied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data",
+          "type": "object"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "title": "Measurements",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Result",
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "timesync-mcp"
+version = "0.1.0"
+description = "Read-only clock synchronization and robotics timestamp diagnostics over MCP"
+readme = "README_EN.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+authors = [{name = "TimeSync MCP contributors"}]
+keywords = ["mcp", "ptp", "chrony", "ros2", "robotics", "time-synchronization"]
+classifiers = ["Development Status :: 3 - Alpha", "Operating System :: POSIX :: Linux", "Programming Language :: Python :: 3.11", "Programming Language :: Python :: 3.12", "Typing :: Typed"]
+dependencies = ["mcp==2.3.0", "pydantic>=2.12,<3", "typer>=0.25,<1"]
+
+[project.urls]
+Homepage = "https://github.com/tiansongyu/TimeSync-MCP"
+Repository = "https://github.com/tiansongyu/TimeSync-MCP"
+Documentation = "https://github.com/tiansongyu/TimeSync-MCP/blob/main/docs/index.md"
+Issues = "https://github.com/tiansongyu/TimeSync-MCP/issues"
+Changelog = "https://github.com/tiansongyu/TimeSync-MCP/blob/main/CHANGELOG.md"
+
+[project.scripts]
+timesync-mcp = "timesync_mcp.cli:app"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "pytest-cov>=6,<8", "mypy>=1.15,<2", "ruff>=0.15,<1", "build>=1,<2", "jsonschema>=4,<5", "types-jsonschema"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/timesync_mcp"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = ["ros: requires a ROS-distribution-matched system Python and rclpy", "hardware: requires manual hardware setup"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src/timesync_mcp"]
+
+[[tool.mypy.overrides]]
+module = ["rclpy.*", "rosidl_runtime_py.*", "rosgraph_msgs.*", "rcl_interfaces.*"]
+ignore_missing_imports = true
+
+[tool.ruff.lint.extend-per-file-ignores]
+"src/timesync_mcp/cli.py" = ["B008"]
+"ros_bridge/**/*.py" = ["UP017"]
+"tests/**/*.py" = ["ASYNC220", "ASYNC240"]

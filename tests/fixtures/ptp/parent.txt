@@ -1,0 +1,5 @@
+ 001122.fffe.334455-0 seq 0 RESPONSE MANAGEMENT PARENT_DATA_SET
+ parentPortIdentity 001122.fffe.334455-1
+ gm.ClockClass 6
+ gm.ClockAccuracy 0x20
+ grandmasterIdentity 001122.fffe.334455

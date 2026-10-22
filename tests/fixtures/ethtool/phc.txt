@@ -1,0 +1,16 @@
+Time stamping parameters for eth0:
+Capabilities:
+ hardware-transmit
+ software-transmit
+ hardware-receive
+ software-receive
+ software-system-clock
+ hardware-raw-clock
+PTP Hardware Clock: 0
+Hardware Transmit Timestamp Modes:
+ off
+ on
+Hardware Receive Filter Modes:
+ none
+ ptpv2-event
+ all

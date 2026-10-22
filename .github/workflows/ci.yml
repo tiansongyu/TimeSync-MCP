@@ -1,0 +1,53 @@
+name: checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  core:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04]
+        python: ['3.11', '3.12']
+    runs-on: ${{ matrix.os }}
+    env:
+      UV_PYTHON: ${{ matrix.python }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.26'
+          python-version: ${{ matrix.python }}
+      - run: uv sync --locked --python ${{ matrix.python }}
+      - run: uv run ruff check src tests ros_bridge scripts examples
+      - run: uv run ruff format --check src tests ros_bridge scripts examples
+      - run: uv run mypy
+      - run: uv run mypy --python-version 3.10 ros_bridge/src
+      - run: uv run pytest -m 'not ros' --cov=timesync_mcp
+      - run: uv run python scripts/check_docs.py
+      - run: uv run python scripts/export_tool_reference.py
+      - run: git diff --exit-code -- docs/mcp-tools.md docs/mcp-tools.schema.json
+      - run: uv build && uv build ros_bridge
+      - run: uv run timesync-mcp doctor
+  ros:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - distro: humble
+            image: ros:humble-ros-base
+          - distro: jazzy
+            image: ros:jazzy-ros-base
+    runs-on: ubuntu-24.04
+    container: ${{ matrix.image }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.26'
+          python-version: '3.12'
+      - shell: bash
+        run: |
+          source /opt/ros/${{ matrix.distro }}/setup.bash
+          uv sync --locked
+          env -u PYTHONPATH TIMESYNC_REQUIRE_ROS=1 uv run pytest -m ros -v

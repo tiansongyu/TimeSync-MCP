@@ -1,0 +1,6 @@
+TimeSync MCP
+Copyright 2026 TimeSync MCP contributors
+
+This project is licensed under Apache License 2.0.
+It uses the official Model Context Protocol Python SDK and other separately licensed dependencies.
+See THIRD_PARTY_NOTICES.md and uv.lock for dependency versions and license information.

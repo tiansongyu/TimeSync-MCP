@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation / 文档
+    url: https://github.com/tiansongyu/TimeSync-MCP/blob/main/docs/index.md
+    about: Start with installation, tool reference, concepts and troubleshooting.
+  - name: Security policy / 安全政策
+    url: https://github.com/tiansongyu/TimeSync-MCP/blob/main/SECURITY.md
+    about: Do not disclose vulnerabilities or credentials in a public issue.

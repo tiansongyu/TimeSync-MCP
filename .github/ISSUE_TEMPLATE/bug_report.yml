@@ -1,0 +1,40 @@
+name: Bug report / 缺陷报告
+description: Report a reproducible parser, protocol, analysis or integration defect.
+title: '[Bug]: '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: 'Remove credentials, account names and private robot data. Do not post security exploit details here; see SECURITY.md.'
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / 环境
+      description: TimeSync commit/version, OS, architecture, Python, MCP client, ROS distro/bridge Python, relevant system tool versions.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction / 复现步骤
+      description: Exact tool name and sanitized JSON parameters; minimal input fixture when possible.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior / 预期与实际行为
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized evidence / 脱敏证据
+      description: Structured result, parser input, error, and provenance. Clearly label Synthetic versus hardware observations.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Data handling
+      options:
+        - label: I removed secrets and identified whether the data is synthetic or hardware-derived.
+          required: true

@@ -1,0 +1,4 @@
+ 001122.fffe.334455-0 seq 0 RESPONSE MANAGEMENT CURRENT_DATA_SET
+ stepsRemoved 1
+ offsetFromMaster -1250.5
+ meanPathDelay 500.25

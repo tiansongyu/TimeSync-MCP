@@ -1,0 +1,23 @@
+name: Feature request / 功能建议
+description: Propose a diagnostic capability with evidence and clear scope.
+title: '[Feature]: '
+labels: ['enhancement']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and user workflow / 问题与使用流程
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior / 建议行为
+      description: Include input/output, clock domains, read-only access and unavailable-device behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Official references and validation / 官方接口与验证方法
+      description: Device/API versions, timestamp semantics, fixture availability and hardware verification requirements.
