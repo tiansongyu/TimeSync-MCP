@@ -14,4 +14,6 @@
 | Claude Code | project stdio add/list、项目批准流程 | [官方文档](https://code.claude.com/docs/en/mcp) |
 | OpenCode | local command array 配置 | [官方文档](https://opencode.ai/docs/mcp-servers/) |
 
+CI Actions 固定为官方 checkout v7.0.1、setup-uv v10.3.1 的 commit，版本依据为各自官方 Releases，避免已弃用的 Node 20 Action 运行时。
+
 核心技术取舍：不用旧 FastMCP v1 导入；不在同一环境混装 Humble rclpy 与 MCP 运行依赖；不以 daemon 状态建立未测量的时钟变换；用 stdlib/Decimal 支持确定性统计，避免不必要的 NumPy 运行依赖。未创建额外逐组件 skill 或未经批准的 ADR。

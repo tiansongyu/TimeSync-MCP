@@ -22,6 +22,8 @@ from .backend import ROSBackend
 
 MAX_REQUEST = 16_384
 MAX_RESPONSE = 8_000_000
+WRITE_TIMEOUT_S = 2.0
+CLOSE_TIMEOUT_S = 1.0
 
 
 @asynccontextmanager
@@ -194,8 +196,6 @@ class BridgeServer:
                     await asyncio.shield(work)
                 except (Exception, asyncio.CancelledError):
                     pass
-            if admitted:
-                self.active -= 1
             try:
                 payload = json.dumps(response, allow_nan=False).encode() + b"\n"
                 if len(payload) > MAX_RESPONSE:
@@ -209,12 +209,19 @@ class BridgeServer:
                         + "\n"
                     ).encode()
                 writer.write(payload)
-                await writer.drain()
-            except (ConnectionError, BrokenPipeError):
+                await asyncio.wait_for(writer.drain(), timeout=WRITE_TIMEOUT_S)
+            except (ConnectionError, TimeoutError):
                 pass
-            writer.close()
-            await writer.wait_closed()
-            self.handlers.discard(task)
+            finally:
+                writer.close()
+                try:
+                    await asyncio.wait_for(writer.wait_closed(), timeout=CLOSE_TIMEOUT_S)
+                except (ConnectionError, TimeoutError):
+                    writer.transport.abort()
+                finally:
+                    if admitted:
+                        self.active -= 1
+                    self.handlers.discard(task)
 
     async def run(self) -> None:
         self.path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)

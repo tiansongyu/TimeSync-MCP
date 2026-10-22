@@ -84,7 +84,7 @@ Unknown clock domains cannot be compared. Nearest stamps do not establish clock 
 
 ## Platforms and limitations
 
-Ubuntu 22.04 x86_64, Python 3.12, and standalone Humble Python 3.10 have local software/DDS validation with Synthetic publishers. Python 3.11 compatibility results are in the validation record. Ubuntu 24.04/Jazzy have separate CI jobs, not a claimed local result. ARM64/Jetson and PHC/Grandmaster/exposure/physical IMU sampling remain hardware-unverified. Use the [manual acceptance guide](docs/hardware-acceptance.md).
+Ubuntu 22.04 x86_64, Python 3.12, and standalone Humble Python 3.10 have local software/DDS validation with Synthetic publishers. Python 3.11 compatibility results are in the validation record. Ubuntu 24.04/Jazzy have passed separate CI jobs, including actual DDS Synthetic tests in the matching ROS container. ARM64/Jetson and PHC/Grandmaster/exposure/physical IMU sampling remain hardware-unverified. Use the [manual acceptance guide](docs/hardware-acceptance.md).
 
 PTP UDS queries address a daemon; the requested interface does not establish its port association. Standard ROS 2 Header has no sequence field; the online bridge supports exact/tolerance timestamp matching. Event-ID matching is available in the independent analysis API. Reports are snapshots with engineering thresholds, not continuous servo verification.
 

@@ -1,6 +1,6 @@
 # 验证记录
 
-记录时间：2026-10-22。下列“通过”均指当前环境实际运行结果；配置了 CI 不等于 CI 已经通过。此页不包含实体传感器或 PTP 精度验收结果。
+记录时间：2026-10-22。下列“通过”均指当前环境实际运行结果；CI 结果与本地结果分开记录。此页不包含实体传感器或 PTP 精度验收结果。
 
 ## 当前环境
 
@@ -8,8 +8,8 @@ Ubuntu 22.04.5 LTS、Linux 6.8、x86_64。核心 Python 3.12.13；兼容环境 P
 
 | 验证 | 实际结果 |
 | --- | --- |
-| Python 3.12 完整 pytest | 39 passed，含 3 项真实 ROS/DDS 集成；核心覆盖率 86%（子进程 CLI 不计入该覆盖率） |
-| Python 3.11 非 ROS pytest | 36 passed，3 deselected；独立临时环境 |
+| Python 3.12 完整 pytest | 41 passed，含 3 项真实 ROS/DDS 集成；核心覆盖率 86%（子进程 CLI 不计入该覆盖率） |
+| Python 3.11 非 ROS pytest | 38 passed，3 deselected；独立临时环境 |
 | Ruff check / format | src、tests、ros_bridge、scripts、examples 通过 |
 | mypy strict 核心 | 34 个源文件通过 |
 | mypy Bridge / Python 3.10 target | 3 个源文件通过 |
@@ -36,9 +36,12 @@ Ubuntu 22.04.5 LTS、Linux 6.8、x86_64。核心 Python 3.12.13；兼容环境 P
 
 客户端检查不声称所有版本都支持相同协议。脚本 `scripts/verify_clients.py` 不绕过 Claude 的项目批准，也不调用云端推理。
 
+## 远端 CI
+
+[首轮 CI c0e9870](https://github.com/tiansongyu/TimeSync-MCP/actions/runs/39745948754) 的六个任务全部通过：Ubuntu 22.04/24.04 × Python 3.11/3.12 的四个核心任务，以及 Humble/Jazzy 两个发行版容器中的实际 DDS Synthetic 集成测试。这是容器软件验证，不是 ARM64 或实体机器人性能验收。CI Action 版本随后更新为固定 commit 的 checkout 7.0.1 / setup-uv 10.3.1，消除旧运行时弃用提示。
+
 ## 尚未验证
 
-- Ubuntu 24.04 / ROS Jazzy：已配置单独 GitHub Actions job，本机没有该发行版执行结果。
 - ARM64 / NVIDIA Jetson、真实 PHC/Grandmaster、跨主机计量、双目曝光、IMU 物理采样、LiDAR 每点时间、EtherCAT DC：全部 hardware-unverified。
 - GMSL、Jetson HTE、SOEM/IgH、rosbag2、历史/多机插件：尚未实现。
 

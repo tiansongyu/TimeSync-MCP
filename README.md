@@ -101,7 +101,7 @@ OpenCode 使用 [opencode.json](examples/opencode/opencode.json) 的 `mcp.timesy
 | --- | --- |
 | Ubuntu 22.04 x86_64 / Python 3.12 / ROS Humble Python 3.10 | 本地软件与真实 DDS 合成测试已验证 |
 | Python 3.11 | 兼容性验证见 validation.md |
-| Ubuntu 24.04 / ROS Jazzy | 已配置独立 CI；当前环境未执行该发行版 |
+| Ubuntu 24.04 / ROS Jazzy | 独立发行版容器 CI 已通过，限软件/DDS 合成验证 |
 | ARM64 / Jetson | 设计目标，未做实机验收 |
 | PHC / PTP Grandmaster / 双目曝光 / IMU 实体采样 | 未做硬件验收 |
 

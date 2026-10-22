@@ -16,7 +16,7 @@ User-visible changes are recorded here. Version numbers describe the software pa
 
 ### Validation limits
 
-- Ubuntu 24.04/Jazzy CI is configured but has no local validation result.
+- Ubuntu 22.04/24.04 and ROS Humble/Jazzy CI passed software/Synthetic DDS validation; no physical timing accuracy is claimed.
 - ARM64/Jetson, actual PHC/Grandmaster synchronization, physical exposure/sample timing and device-specific adapters remain hardware-unverified.
 - GMSL/HTE, SOEM/IgH, rosbag2, multi-host aggregation and historical monitoring are future extensions.
 - No automatic clock, network, service, robot parameter or motion changes are supported.

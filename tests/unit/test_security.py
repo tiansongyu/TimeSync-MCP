@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 import pytest
 from timesync_ros_bridge.bridge import BridgeServer, validate_request
@@ -143,4 +144,60 @@ async def test_bridge_private_socket_and_protocol(tmp_path):
         listener.close()
         await listener.wait_closed()
         await asyncio.gather(*server.handlers, return_exceptions=True)
+        server.pool.shutdown(wait=True)
+
+
+@pytest.mark.parametrize("stall_phase", ["drain", "close"])
+async def test_bridge_slow_peer_cleanup_deadlines(tmp_path, monkeypatch, stall_phase):
+    import struct
+
+    import timesync_ros_bridge.bridge as bridge_module
+
+    monkeypatch.setattr(bridge_module, "WRITE_TIMEOUT_S", 0.01)
+    monkeypatch.setattr(bridge_module, "CLOSE_TIMEOUT_S", 0.01)
+
+    class Peer:
+        def getsockopt(self, *args):
+            return struct.pack("3i", os.getpid(), os.getuid(), os.getgid())
+
+    class Reader:
+        async def readline(self):
+            return b'{"version":1,"method":"ping","params":{}}\n'
+
+    class Writer:
+        transport = None
+        closed = False
+        aborted = False
+
+        def __init__(self):
+            self.transport = self
+
+        def get_extra_info(self, name):
+            return Peer()
+
+        def write(self, data):
+            assert b"protocol_version" in data
+
+        async def drain(self):
+            if stall_phase == "drain":
+                await asyncio.Event().wait()
+
+        def close(self):
+            self.closed = True
+
+        async def wait_closed(self):
+            if stall_phase == "close":
+                await asyncio.Event().wait()
+
+        def abort(self):
+            self.aborted = True
+
+    server = BridgeServer(None, str(tmp_path / "bridge.sock"))
+    writer = Writer()
+    try:
+        await asyncio.wait_for(server.handle(Reader(), writer), timeout=0.5)
+        assert writer.closed and server.active == 0 and not server.handlers
+        if stall_phase == "close":
+            assert writer.aborted
+    finally:
         server.pool.shutdown(wait=True)
